@@ -7,6 +7,7 @@ let timerHours = document.querySelector('#timer-hours'),
     timerSeconds = document.querySelector('#timer-seconds');
 
     function getTimeRemaining() {
+        console.log(1);
     let dateStop = new Date(deadline).getTime(),
         dateNow = new Date().getTime(),
         timeRemaining = (dateStop - dateNow) / 1000,
@@ -16,17 +17,20 @@ let timerHours = document.querySelector('#timer-hours'),
         return {timeRemaining, hours, minutes, seconds};
     }
     
-    function updateClock() {
+    const interval = setInterval(() => {
         let timer = getTimeRemaining();  
-        timerHours.textContent = timer.hours;
-        timerMinutes.textContent = timer.minutes;
-        timerSeconds.textContent = timer.seconds;
+            timer.hours > 9 ? timerHours.textContent = timer.hours : timerHours.textContent = '0' +  timer.hours;
+            timer.minutes > 9 ? timerMinutes.textContent = timer.minutes : timerMinutes.textContent = '0' + timer.minutes;
+            timer.seconds > 9 ? timerSeconds.textContent = timer.seconds : timerSeconds.textContent = '0' + timer.seconds;
 
-    if (timer.timeRemaining > 0) {
-        setInterval(updateClock, 1000);
+    if (timer.timeRemaining < 0) {
+        clearInterval(interval);
+        timerHours.textContent = '00';
+        timerMinutes.textContent ='00';
+        timerSeconds.textContent = '00';
+
         }
-    }
-updateClock(); 
+    }, 1000);
 }
-countTimer('28 april 2020');
+countTimer('26 april 2020');
 });
