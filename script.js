@@ -7,7 +7,6 @@ let timerHours = document.querySelector('#timer-hours'),
     timerSeconds = document.querySelector('#timer-seconds');
 
     function getTimeRemaining() {
-        console.log(1);
     let dateStop = new Date(deadline).getTime(),
         dateNow = new Date().getTime(),
         timeRemaining = (dateStop - dateNow) / 1000,
@@ -32,5 +31,42 @@ let timerHours = document.querySelector('#timer-hours'),
         }
     }, 1000);
 }
-countTimer('26 april 2020');
+countTimer('30 april 2020');
+
+//menu
+const toggleMenu = () => {
+const btnMenu = document.querySelector('.menu'),
+      menu = document.querySelector('menu'),
+      closeBtn = document.querySelector('.close-btn'),
+      menuItems = menu.querySelectorAll('ul>li');
+
+const handlerMenu = () => {
+    menu.classList.toggle('active-menu'); 
+};
+  
+btnMenu.addEventListener('click', handlerMenu);
+closeBtn.addEventListener('click', handlerMenu);
+menuItems.forEach((elem) => elem.addEventListener('click', handlerMenu));
+
+};
+toggleMenu();
+//popup
+const togglePopUp = () => {
+    const popup = document.querySelector('.popup'),
+    popupBtn = document.querySelectorAll('.popup-btn'),
+    popUpClose = document.querySelector('.popup-close');
+
+    popupBtn.forEach((elem) => {
+        elem.addEventListener('click', () => {
+            popup.style.display = 'block';
+        });
+
+    });
+    popUpClose.addEventListener('click', () => {
+        popup.style.display = 'none';
+    });
+
+};
+togglePopUp();
+
 });
