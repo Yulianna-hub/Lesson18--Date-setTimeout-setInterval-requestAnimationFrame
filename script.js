@@ -60,12 +60,13 @@ window.addEventListener('DOMContentLoaded', function() {
         popupBtn.forEach((elem) => {
             elem.addEventListener('click', () => {
                 popup.style.display = 'block';
+                   
                 if (screen.width  > 768) {
                     !popUpAnimation();
                   } else { 
                     popUpAnimation();
                   }
-                popUpAnimation();   
+           
             });
     
         });
