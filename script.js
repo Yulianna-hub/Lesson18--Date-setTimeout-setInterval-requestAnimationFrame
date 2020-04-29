@@ -60,8 +60,12 @@ window.addEventListener('DOMContentLoaded', function() {
         popupBtn.forEach((elem) => {
             elem.addEventListener('click', () => {
                 popup.style.display = 'block';
-                popUpAnimation();
-               clientWidth  < 768 == !popUpAnimation();
+                if (screen.width  > 768) {
+                    !popUpAnimation();
+                  } else { 
+                    popUpAnimation();
+                  }
+                popUpAnimation();   
             });
     
         });
@@ -72,7 +76,6 @@ window.addEventListener('DOMContentLoaded', function() {
     //popUpAnimation
     let popUpAnimation = function () {
     let start = Date.now();
-    console.log(start);
     let timer = setInterval(function() {
     let timePassed = Date.now() - start;
       if (timePassed >= 3000) {
