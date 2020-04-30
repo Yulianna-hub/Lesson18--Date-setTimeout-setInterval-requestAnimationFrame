@@ -57,6 +57,21 @@ const togglePopUp = () => {
     popUpClose = document.querySelector('.popup-close'),
     popupContent = document.querySelector('.popup-content');
 
+//popUpAnimation
+let popUpAnimation = () => {
+    const topPosition = (document.documentElement.clientHeight - popupContent.clientHeight) / 2;
+    let start = Date.now();
+    let timer = setInterval(function() {
+        let timePassed = (Date.now() - start);
+        if (parseFloat(popupContent.style.top) >= topPosition){clearInterval(timer)};
+        muve(timePassed);
+    }, 10);
+
+    function muve(timePassed) {
+        popupContent.style.top = timePassed / 5 + 'px';
+    }
+    
+};
 popupBtn.forEach((elem) => {
     elem.addEventListener('click', () => {
         if (screen.width  < 768) {
@@ -74,27 +89,6 @@ popUpClose.addEventListener('click', () => {
     
 });
     
-//popUpAnimation
-let popUpAnimation = function() {
-    const topPosition = (document.documentElement.clientHeight - popupContent.clientHeight) / 2;
-    let start = Date.now();
-    let timer = setInterval(function() {
-        console.log(popupContent.style.top);
-        console.log(topPosition);
-        let timePassed = Date.now() - start;
-        if (parseFloat(popupContent.style.top) >= topPosition) {
-            clearInterval(timer);
-            return;
-        }
-        muve(timePassed);
-    }, 10);
-
-    function muve(timePassed) {
-        popupContent.style.top = timePassed / 5 + 'px';
-    }
-    
-};
-
 };
 togglePopUp();
 
