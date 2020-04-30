@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 //timer
     function countTimer(deadline) {
-        let timerHours = document.querySelector('#timer-hours'),
+        const timerHours = document.querySelector('#timer-hours'),
             timerMinutes = document.querySelector('#timer-minutes'),
             timerSeconds = document.querySelector('#timer-seconds');
 
@@ -37,6 +37,7 @@ window.addEventListener('DOMContentLoaded', function () {
     const  toggleMenu = () => {
         const menuBtn = document.querySelector('.menu');
         const menu = document.querySelector('menu');
+
         menuBtn.addEventListener('click', () => {
             menu.classList.toggle('active-menu'); 
         });
@@ -50,17 +51,16 @@ window.addEventListener('DOMContentLoaded', function () {
     const togglePopUp = () => {
         const popUp = document.querySelector('.popup'),
             popupBtn = document.querySelectorAll('.popup-btn'),
-            popupContent = document.querySelectorAll('.popup-content');
+            popupContent = document.querySelector('.popup-content');
 
 //popUpAnimation
-        let popUpAnimation = () => {
+       let popUpAnimation = () => {
             const topPosition = (document.documentElement.clientHeight - popupContent.clientHeight) / 2;
             let start = Date.now();
             let timer = setInterval(function () {
                 let timePassed = (Date.now() - start);
                 if (parseFloat(popupContent.style.top) >= topPosition) {
-                    clearInterval(timer);
-                }
+                    clearInterval(timer)}
                 muve(timePassed);
             }, 10);
 
@@ -70,18 +70,17 @@ window.addEventListener('DOMContentLoaded', function () {
         };
         popupBtn.forEach((elem) => {
             elem.addEventListener('click', () => {
-                if (screen.width < 768) {
-                    popUp.style.display = 'block';
-                } else {
-                    popUp.style.display = 'block';
-                    popUpAnimation();
-                }
+                if (screen.width  < 768) {
+                popUp.style.display = 'block';
+            }else {
+                popUp.style.display = 'block';
+                popUpAnimation();
+            }
             });
-
-        });
+            
+        });      
         popUp.addEventListener('click', (event) => {
             let target = event.target;
-
             if (target.classList.contains('popup-close')) {
                 popUp.style.display = 'none';
                 popupContent.style.top = '';
