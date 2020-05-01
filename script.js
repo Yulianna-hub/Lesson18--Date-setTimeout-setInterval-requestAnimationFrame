@@ -132,22 +132,27 @@ window.addEventListener('DOMContentLoaded', function () {
 
 const slider = () => {
     const slide = document.querySelectorAll('.portfolio-item'),
-        btn = document.querySelectorAll('.portfolio-btn'),
-        dot = document.querySelectorAll('.dot'),
+        portfolioDots = document.querySelector('.portfolio-dots'),
         slider = document.querySelector('.portfolio-content');
 
     let currentSlide = 0;
     let interval;
-
+    let dot; 
+    for (let i = 0; i < slide.length; ++i) {
+        dot = document.createElement('li');
+        dot.classList.add('dot');
+        console.log(portfolioDots.appendChild(dot));  
+    }
     const prevSlide = (elem, index, strClass) => {
         elem[index].classList.remove(strClass);
+       
     };
     const nextSlide = (elem, index, strClass) => {
         elem[index].classList.add(strClass);
     };
     const autoPlaySlide = () => {
         prevSlide(slide, currentSlide, 'portfolio-item-active');
-        prevSlide(dot, currentSlide, 'dot-active');
+        prevSlide(dot, currentSlide,  'dot-active');
         currentSlide++;
         if (currentSlide >= slide.length) {
             currentSlide = 0;
