@@ -139,9 +139,9 @@ const slider = () => {
     let interval;
     let dot;
         for (let i = 0; i < slide.length; ++i) {
-            dot = document.createElement('li');   
-            dot.classList.add('dot');
-            portfolioDots.append(dot);     
+        let dots = document.createElement('li');   
+            dots.classList.add('dot');
+            portfolioDots.append(dots);     
         }
     dot = portfolioDots.querySelectorAll('.dot');
     const prevSlide = (elem, index, strClass) => {
