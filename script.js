@@ -140,8 +140,8 @@ const slider = () => {
     let dot;
         for (let i = 0; i <= slide.length; i++) {
         let dots = document.createElement('li');   
-            if (i == 0) {
-                console.log(dots.classList.add('dot-active'));
+            if (!i) {
+               dots.classList.add('dot-active');
             }else {
                 dots.classList.add('dot');
             }  
