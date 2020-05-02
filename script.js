@@ -138,10 +138,15 @@ const slider = () => {
     let currentSlide = 0;
     let interval;
     let dot;
-        for (let i = 0; i < slide.length; ++i) {
+        for (let i = 0; i <= slide.length; ++i) {
         let dots = document.createElement('li');   
-            dots.classList.add('dot');
-            portfolioDots.append(dots);     
+            if (i == 0) {
+                dots.classList.add('dot-active');
+            }else {
+                dots.classList.add('dot');
+            }    
+            portfolioDots.append(dots);
+            
         }
     dot = portfolioDots.querySelectorAll('.dot');
     const prevSlide = (elem, index, strClass) => {
@@ -170,7 +175,7 @@ const slider = () => {
     slider.addEventListener('click', (event) => {
         event.preventDefault();
         let target = event.target;
-        if (!target.matches('.portfolio-btn, dot')) {
+        if (!target.matches('.portfolio-btn, .dot')) {
             return;
         }
         prevSlide(slide, currentSlide, 'portfolio-item-active'); 
