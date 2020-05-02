@@ -138,13 +138,13 @@ const slider = () => {
     let currentSlide = 0;
     let interval;
     let dot;
-        for (let i = 0; i <= slide.length; ++i) {
+        for (let i = 0; i <= slide.length; i++) {
         let dots = document.createElement('li');   
             if (i == 0) {
-                dots.classList.add('dot-active');
+                console.log(dots.classList.add('dot-active'));
             }else {
                 dots.classList.add('dot');
-            }    
+            }  
             portfolioDots.append(dots);
             
         }
