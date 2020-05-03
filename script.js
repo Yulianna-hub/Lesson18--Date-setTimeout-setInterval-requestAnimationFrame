@@ -60,7 +60,8 @@ window.addEventListener('DOMContentLoaded', function () {
             let timer = setInterval(function () {
                 let timePassed = (Date.now() - start);
                 if (parseFloat(popupContent.style.top) >= topPosition) {
-                    clearInterval(timer)}
+                    clearInterval(timer);
+                }
                 muve(timePassed);
             }, 10);
 
@@ -130,93 +131,130 @@ window.addEventListener('DOMContentLoaded', function () {
     tabs();
 //слайдер 
 
-const slider = () => {
-    const slide = document.querySelectorAll('.portfolio-item'),
-        portfolioDots = document.querySelector('.portfolio-dots'),
-        slider = document.querySelector('.portfolio-content');
+    const slider = () => {
+        const slide = document.querySelectorAll('.portfolio-item'),
+            portfolioDots = document.querySelector('.portfolio-dots'),
+            slider = document.querySelector('.portfolio-content');
 
-    let currentSlide = 0;
-    let interval;
-    let dot;
-        for (let i = 0; i <= slide.length; i++) {
-        let dots = document.createElement('li');   
-            if (!i) {
-               dots.classList.add('dot-active');
-            }else {
-                dots.classList.add('dot');
-            }  
-            portfolioDots.append(dots);
-            
-        }
-    dot = portfolioDots.querySelectorAll('.dot');
-    const prevSlide = (elem, index, strClass) => {
-      elem[index].classList.remove(strClass);
-    };
-    const nextSlide = (elem, index, strClass) => {
-      elem[index].classList.add(strClass);
-    };
-    const autoPlaySlide = () => {
-        prevSlide(slide, currentSlide, 'portfolio-item-active');
-        prevSlide(dot, currentSlide, 'dot-active');
-        currentSlide++;
-        if (currentSlide >= slide.length) {
-            currentSlide = 0;
-        }
-        nextSlide(slide, currentSlide, 'portfolio-item-active');
-        nextSlide(dot, currentSlide, 'dot-active');
-    };
-    const startSlide = (time = 3000) => {
-       interval = setInterval(autoPlaySlide, time);
-
-    };
-    const stopSlide = () => {
-        clearInterval(interval);
-    };
-    slider.addEventListener('click', (event) => {
-        event.preventDefault();
-        let target = event.target;
-        if (!target.matches('.portfolio-btn, .dot')) {
-            return;
-        }
-        prevSlide(slide, currentSlide, 'portfolio-item-active'); 
-        prevSlide(dot, currentSlide, 'dot-active');  
-        if (target.matches('#arrow-right')) {
+        let currentSlide = 0;
+        let interval;
+        let dot;
+            for (let i = 0; i <= slide.length; i++) {
+            let dots = document.createElement('li');   
+                if (!i) {
+                dots.classList.add('dot-active');
+                }else {
+                    dots.classList.add('dot');
+                }  
+                portfolioDots.append(dots);
+                
+            }
+        dot = portfolioDots.querySelectorAll('.dot');
+        const prevSlide = (elem, index, strClass) => {
+        elem[index].classList.remove(strClass);
+        };
+        const nextSlide = (elem, index, strClass) => {
+        elem[index].classList.add(strClass);
+        };
+        const autoPlaySlide = () => {
+            prevSlide(slide, currentSlide, 'portfolio-item-active');
+            prevSlide(dot, currentSlide, 'dot-active');
             currentSlide++;
-        }else if (target.matches('#arrow-left')) {
-            currentSlide--;
-        }else if (target.matches('.dot')) {
-            dot.forEach((elem, index) => {
-                if (elem === target) {
-                    currentSlide = index;
-                }
-            });
-        }
-        if (currentSlide >= slide.length) {
-            currentSlide = 0;
-        }
-        if (currentSlide < 0) {
-            currentSlide = slide.length - 1;
-        }
-        nextSlide(slide, currentSlide, 'portfolio-item-active');
-        nextSlide(dot, currentSlide, 'dot-active');
-    });
-    slider.addEventListener('mouseover', (event) => {
-        if (event.target.matches('.portfolio-btn') ||
-        event.target.matches('.dot')) {
-            stopSlide();           
-        }
-    });
-    slider.addEventListener('mouseout', (event) => {
-        if (event.target.matches('.portfolio-btn') ||
-        event.target.matches('.dot')) {
-            startSlide();           
-        }
-    });
+            if (currentSlide >= slide.length) {
+                currentSlide = 0;
+            }
+            nextSlide(slide, currentSlide, 'portfolio-item-active');
+            nextSlide(dot, currentSlide, 'dot-active');
+        };
+        const startSlide = (time = 3000) => {
+        interval = setInterval(autoPlaySlide, time);
 
-    startSlide(1500);
-};
+        };
+        const stopSlide = () => {
+            clearInterval(interval);
+        };
+        slider.addEventListener('click', (event) => {
+            event.preventDefault();
+            let target = event.target;
+            if (!target.matches('.portfolio-btn, .dot')) {
+                return;
+            }
+            prevSlide(slide, currentSlide, 'portfolio-item-active'); 
+            prevSlide(dot, currentSlide, 'dot-active');  
+            if (target.matches('#arrow-right')) {
+                currentSlide++;
+            }else if (target.matches('#arrow-left')) {
+                currentSlide--;
+            }else if (target.matches('.dot')) {
+                dot.forEach((elem, index) => {
+                    if (elem === target) {
+                        currentSlide = index;
+                    }
+                });
+            }
+            if (currentSlide >= slide.length) {
+                currentSlide = 0;
+            }
+            if (currentSlide < 0) {
+                currentSlide = slide.length - 1;
+            }
+            nextSlide(slide, currentSlide, 'portfolio-item-active');
+            nextSlide(dot, currentSlide, 'dot-active');
+        });
+        slider.addEventListener('mouseover', (event) => {
+            if (event.target.matches('.portfolio-btn') ||
+            event.target.matches('.dot')) {
+                stopSlide();           
+            }
+        });
+        slider.addEventListener('mouseout', (event) => {
+            if (event.target.matches('.portfolio-btn') ||
+            event.target.matches('.dot')) {
+                startSlide();           
+            }
+        });
+
+        startSlide(2000);
+    };
 
     slider();
+//calculeta 
+   const calculeta = () => {
+        const calcBlock = document. querySelector('.calc-block');
+        const calcItems = document.querySelectorAll('.calc-item');
+        const total = document.querySelector('#total');
+
+        const calcRes = () => {
+            calcItems.forEach((elem) =>elem.value.match(/d/gi, ''));
+            total.textContent = calcItems.value;  
+        };
+        calcBlock.addEventListener('input', calcRes());
+    };
+    calculeta();
+
+ //our command
+    const ourCommand = () => {
+        const command = document.querySelector('#command');
+        const commandPhoto = command.querySelectorAll('img');
+
+        const imageReplacement = () =>{ 
+        event.target.src = event.target.dataset.img;
+        };
+        const overReplacement = () => { 
+        //event.target.src = event.target.dataset.src;  
+        };
+        command.addEventListener('mouseover', (event) => {
+            if (event.target.matches('img')) {
+                imageReplacement();
+            }
+        });
+        command.addEventListener('mouseout', (event) => {
+            if (event.target.matches('img')) { 
+            overReplacement();
+            }
+        });       
+    };
+    ourCommand();
 
 });
   
