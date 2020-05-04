@@ -235,26 +235,20 @@ window.addEventListener('DOMContentLoaded', function () {
  //our command
     const ourCommand = () => {
         const command = document.querySelector('#command');
-        const commandPhoto = command.querySelectorAll('img');
-
-        const imageReplacement = () =>{ 
-        event.target.src = event.target.dataset.img;
-        };
-        const overReplacement = () => { 
-        //event.target.src = event.target.dataset.src;  
-        };
-        command.addEventListener('mouseover', (event) => {
+        let temp;
+        command.addEventListener('mouseover', event => {
             if (event.target.matches('img')) {
-                imageReplacement();
+                temp = event.target.src;
+                event.target.src = event.target.dataset.img;
             }
         });
-        command.addEventListener('mouseout', (event) => {
+        command.addEventListener('mouseout', event => {
             if (event.target.matches('img')) { 
-            overReplacement();
+                event.target.src = temp;   
+            
             }
         });       
     };
     ourCommand();
-
 });
   
