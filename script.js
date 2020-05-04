@@ -218,8 +218,8 @@ window.addEventListener('DOMContentLoaded', function () {
     };
 
     slider();
-//calculeta 
-   const calculeta = () => {
+//calculator 
+   const calculation = () => {
         const calcBlock = document. querySelector('.calc-block');
         const calcItems = document.querySelectorAll('.calc-item');
         const total = document.querySelector('#total');
@@ -230,7 +230,7 @@ window.addEventListener('DOMContentLoaded', function () {
         };
         calcBlock.addEventListener('input', calcRes());
     };
-    calculeta();
+    calculation();
 
  //our command
     const ourCommand = () => {
