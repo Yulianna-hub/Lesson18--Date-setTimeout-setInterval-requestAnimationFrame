@@ -249,7 +249,6 @@ window.addEventListener('DOMContentLoaded', function () {
             totalValue.textContent = calcItems.value;
             totalValue.textContent = total;
         };
-        //calcBlock.addEventListener('input', calcRes());
         calcBlock.addEventListener('change', (event) => {
             const target = event.target;
             //вариант 1
