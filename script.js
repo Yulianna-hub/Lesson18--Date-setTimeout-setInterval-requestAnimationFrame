@@ -45,7 +45,6 @@ window.addEventListener('DOMContentLoaded', function () {
             menu.classList.remove('active-menu');
         });
     };
-
     toggleMenu();
 //popup
     const togglePopUp = () => {
@@ -77,8 +76,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 popUp.style.display = 'block';
                 popUpAnimation();
             }
-            });
-            
+            });    
         });      
         popUp.addEventListener('click', (event) => {
             let target = event.target;
@@ -92,9 +90,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     popupContent.style.top = '';
                 }
             }
-
         });
-
     };
     togglePopUp();
 //Табы 
@@ -113,9 +109,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     tabContent[i].classList.add('d-none');
                 }
             }
-
         };
-
         tabHeader.addEventListener('click', (event) => {
             let target = event.target;
             target = target.closest('.service-header-tab');
@@ -130,12 +124,10 @@ window.addEventListener('DOMContentLoaded', function () {
     };
     tabs();
 //слайдер 
-
     const slider = () => {
         const slide = document.querySelectorAll('.portfolio-item'),
             portfolioDots = document.querySelector('.portfolio-dots'),
             slider = document.querySelector('.portfolio-content');
-
         let currentSlide = 0;
         let interval;
         let dot;
@@ -146,8 +138,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 }else {
                     dots.classList.add('dot');
                 }  
-                portfolioDots.append(dots);
-                
+                portfolioDots.append(dots);    
             }
         dot = portfolioDots.querySelectorAll('.dot');
         const prevSlide = (elem, index, strClass) => {
@@ -268,6 +259,55 @@ window.addEventListener('DOMContentLoaded', function () {
         });   
     };
     calculation(100);
+//send-ajax-form
+    const sendForm = () => {
+        const errorMessage = 'Что то пошло не так...';
+        const loadMessage = 'Загрузка...';
+        const successMesage =  'Спасибо! Мы скоро с вами свяжемся!';
+        const form = document.querySelector('#form1');
+        const statusMessage = document.createElement('div');
+        statusMessage.style.cssText = 'font-size: 2rem;';
+        form.appendChild(statusMessage);
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            form.appendChild(statusMessage);
+            statusMessage.textContent = loadMessage;
+            const formData = new FormData(form);
+            let body = {};
+
+            /*for (let val of formData.entries()) {
+                body[val[0]] = val[1];
+            }*/
+            formData.forEach((val, key) => {
+                body[key] = val;
+            }); 
+            postData(body, () => {
+                statusMessage.textContent = successMesage;
+            }, (error) => {
+                statusMessage.textContent = errorMessage;
+                console.error(error);
+            });
+        });   
+            const postData = (body, outputData, errorData) => {
+                const request = new XMLHttpRequest();
+                    request.addEventListener('readystatechange', () => {
+                        if (request.readyState !== 4) {
+                            return;
+                        } 
+                        if (request.status === 200) {
+                            outputData(); 
+                        }else {
+                            errorData(request.status);  
+                        }      
+                    });
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
+                
+            request.send(JSON.stringify(body));
+            };  
+
+    };
+    sendForm();
 
  //our command
     const ourCommand = () => {
