@@ -230,7 +230,7 @@ window.addEventListener('DOMContentLoaded', function () {
             let total = 0;
             let countValue = 1;
             let dayValue = 1; 
-            calcItems.forEach((elem) =>elem.value.match(/d/gi, ''));
+            calcItems.forEach((elem) =>elem.value.match(/^\d+$/gi, ''));
             const typeValue = calcType.options[calcType.selectedIndex].value;
             const squareValue = +calcSquare.value;
 
