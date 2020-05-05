@@ -265,19 +265,52 @@ window.addEventListener('DOMContentLoaded', function () {
         const loadMessage = 'Загрузка...';
         const successMesage =  'Спасибо! Мы скоро с вами свяжемся!';
         const form = document.querySelector('#form1');
+        const formBody = document.querySelector('#form2');
+        const formpopUp = document.querySelector('#form3');
+        const inputTel = document.querySelectorAll('input[type="tel"]');
+
+        const validInp = () => {
+            inputTel.value = inputTel.value.replace(/\d/g, '');
+        };
+        
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 2rem;';
+        let formData = "";
         form.appendChild(statusMessage);
+        formpopUp.appendChild(statusMessage);
+        formBody.appendChild(statusMessage);
+
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             form.appendChild(statusMessage);
+            //statusMessage.textContent = loadMessage;
+            formData = new FormData(form);
+            formMessage(form);
+            form.reset();
+        }); 
+        formpopUp.addEventListener('submit', (event) => {
+            event.preventDefault();
+            statusMessage.style.cssText = 'font-size: 2rem; color: white;';
+            formpopUp.appendChild(statusMessage);
+            //statusMessage.textContent = loadMessage;
+            formData = new FormData(formpopUp);
+            formMessage(formpopUp);
+            formpopUp.reset();
+        
+        });
+        formBody.addEventListener('submit', (event) => {
+            event.preventDefault();
+            formBody.appendChild(statusMessage);
+            //statusMessage.textContent = loadMessage;
+            formData = new FormData(formBody);
+            formMessage();
+            formBody.reset();
+            
+        });
+        const formMessage = () => {
+            
             statusMessage.textContent = loadMessage;
-            const formData = new FormData(form);
             let body = {};
-
-            /*for (let val of formData.entries()) {
-                body[val[0]] = val[1];
-            }*/
             formData.forEach((val, key) => {
                 body[key] = val;
             }); 
@@ -287,7 +320,9 @@ window.addEventListener('DOMContentLoaded', function () {
                 statusMessage.textContent = errorMessage;
                 console.error(error);
             });
-        });   
+
+        };
+
             const postData = (body, outputData, errorData) => {
                 const request = new XMLHttpRequest();
                     request.addEventListener('readystatechange', () => {
@@ -304,11 +339,10 @@ window.addEventListener('DOMContentLoaded', function () {
             request.setRequestHeader('Content-Type', 'application/json');
                 
             request.send(JSON.stringify(body));
-            };  
-
+            }; 
+        validInp();           
     };
     sendForm();
-
  //our command
     const ourCommand = () => {
         const command = document.querySelector('#command');
