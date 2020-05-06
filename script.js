@@ -269,10 +269,11 @@ window.addEventListener('DOMContentLoaded', function () {
         const formpopUp = document.querySelector('#form3');
         const inputTel = document.querySelectorAll('input[type="tel"]');
 
+        console.log(inputTel);
         const validInp = () => {
-            inputTel.value = inputTel.value.replace(/\d/g, '');
+                inputTel.forEach((elem) => elem.value.match(/\+?\D+$/g)); 
         };
-        
+  
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 2rem;';
         let formData = "";
@@ -282,33 +283,30 @@ window.addEventListener('DOMContentLoaded', function () {
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
+            validInp();
             form.appendChild(statusMessage);
-            //statusMessage.textContent = loadMessage;
             formData = new FormData(form);
             formMessage(form);
             form.reset();
         }); 
         formpopUp.addEventListener('submit', (event) => {
+            validInp();
             event.preventDefault();
             statusMessage.style.cssText = 'font-size: 2rem; color: white;';
             formpopUp.appendChild(statusMessage);
-            //statusMessage.textContent = loadMessage;
             formData = new FormData(formpopUp);
             formMessage(formpopUp);
             formpopUp.reset();
-        
         });
         formBody.addEventListener('submit', (event) => {
             event.preventDefault();
+            validInp();
             formBody.appendChild(statusMessage);
-            //statusMessage.textContent = loadMessage;
             formData = new FormData(formBody);
             formMessage();
-            formBody.reset();
-            
+            formBody.reset();    
         });
-        const formMessage = () => {
-            
+        const formMessage = () => { 
             statusMessage.textContent = loadMessage;
             let body = {};
             formData.forEach((val, key) => {
@@ -320,27 +318,25 @@ window.addEventListener('DOMContentLoaded', function () {
                 statusMessage.textContent = errorMessage;
                 console.error(error);
             });
-
         };
 
-            const postData = (body, outputData, errorData) => {
-                const request = new XMLHttpRequest();
-                    request.addEventListener('readystatechange', () => {
-                        if (request.readyState !== 4) {
-                            return;
-                        } 
-                        if (request.status === 200) {
-                            outputData(); 
-                        }else {
-                            errorData(request.status);  
-                        }      
-                    });
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');
-                
-            request.send(JSON.stringify(body));
-            }; 
-        validInp();           
+        const postData = (body, outputData, errorData) => {
+            const request = new XMLHttpRequest();
+                request.addEventListener('readystatechange', () => {
+                    if (request.readyState !== 4) {
+                        return;
+                    } 
+                    if (request.status === 200) {
+                        outputData(); 
+                    }else {
+                        errorData(request.status);  
+                    }      
+                });
+        request.open('POST', './server.php');
+        request.setRequestHeader('Content-Type', 'application/json');
+            
+        request.send(JSON.stringify(body));
+        };           
     };
     sendForm();
  //our command
