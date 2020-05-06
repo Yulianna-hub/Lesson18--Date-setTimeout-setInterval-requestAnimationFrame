@@ -268,12 +268,17 @@ window.addEventListener('DOMContentLoaded', function () {
         const formBody = document.querySelector('#form2');
         const formpopUp = document.querySelector('#form3');
         const inputTel = document.querySelectorAll('input[type="tel"]');
+        const typeText = document.querySelectorAll('input[type="text"]');
 
+        console.log(typeText);
+        typeText.forEach(elem => elem.addEventListener('input', event => {
+            event.target.value = event.target.value.replace(/\w/gi, '');
+        }));
         console.log(inputTel);
-        const validInp = () => {
-                inputTel.forEach((elem) => elem.value.match(/\+?\D+$/g)); 
-        };
-  
+        inputTel.forEach(elem => elem.addEventListener('input', event => {
+            event.target.value = event.target.value.replace(/\+?\D+$/g, '');
+        }));
+      
         const statusMessage = document.createElement('div');
         statusMessage.style.cssText = 'font-size: 2rem;';
         let formData = "";
@@ -283,14 +288,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
         form.addEventListener('submit', (event) => {
             event.preventDefault();
-            validInp();
             form.appendChild(statusMessage);
             formData = new FormData(form);
             formMessage(form);
             form.reset();
         }); 
         formpopUp.addEventListener('submit', (event) => {
-            validInp();
             event.preventDefault();
             statusMessage.style.cssText = 'font-size: 2rem; color: white;';
             formpopUp.appendChild(statusMessage);
@@ -300,7 +303,6 @@ window.addEventListener('DOMContentLoaded', function () {
         });
         formBody.addEventListener('submit', (event) => {
             event.preventDefault();
-            validInp();
             formBody.appendChild(statusMessage);
             formData = new FormData(formBody);
             formMessage();
@@ -319,7 +321,6 @@ window.addEventListener('DOMContentLoaded', function () {
                 console.error(error);
             });
         };
-
         const postData = (body, outputData, errorData) => {
             const request = new XMLHttpRequest();
                 request.addEventListener('readystatechange', () => {
