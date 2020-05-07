@@ -269,12 +269,10 @@ window.addEventListener('DOMContentLoaded', function () {
         const formpopUp = document.querySelector('#form3');
         const inputTel = document.querySelectorAll('input[type="tel"]');
         const typeText = document.querySelectorAll('input[type="text"]');
-
-        console.log(typeText);
+    
         typeText.forEach(elem => elem.addEventListener('input', event => {
             event.target.value = event.target.value.replace(/\w/gi, '');
         }));
-        console.log(inputTel);
         inputTel.forEach(elem => elem.addEventListener('input', event => {
             event.target.value = event.target.value.replace(/\+?\D+$/g, '');
         }));
@@ -285,7 +283,7 @@ window.addEventListener('DOMContentLoaded', function () {
         form.appendChild(statusMessage);
         formpopUp.appendChild(statusMessage);
         formBody.appendChild(statusMessage);
-
+    
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             form.appendChild(statusMessage);
@@ -313,31 +311,38 @@ window.addEventListener('DOMContentLoaded', function () {
             let body = {};
             formData.forEach((val, key) => {
                 body[key] = val;
-            }); 
-            postData(body, () => {
+            });
+            console.log(body);
+            postData(body)
+            .then(statusMessage.textContent = successMesage)
+            .catch(statusMessage.textContent = errorMessage, error => console.error(error));
+
+            /*postData(body, () => {
                 statusMessage.textContent = successMesage;
-            }, (error) => {
+            },(error) => {
                 statusMessage.textContent = errorMessage;
                 console.error(error);
-            });
+            });*/
         };
-        const postData = (body, outputData, errorData) => {
-            const request = new XMLHttpRequest();
-                request.addEventListener('readystatechange', () => {
-                    if (request.readyState !== 4) {
-                        return;
-                    } 
-                    if (request.status === 200) {
-                        outputData(); 
-                    }else {
-                        errorData(request.status);  
-                    }      
-                });
-        request.open('POST', './server.php');
-        request.setRequestHeader('Content-Type', 'application/json');
-            
-        request.send(JSON.stringify(body));
-        };           
+        const postData = (body) => {
+            return new Promise((resolve, reject) => {
+                const request = new XMLHttpRequest();
+                    request.addEventListener('readystatechange', () => {
+                        if (request.readyState !== 4) {
+                            return;
+                        } 
+                        if (request.status === 200) {
+                            resolve(); 
+                        }else {
+                            reject(request.status);  
+                        }      
+                    });
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');     
+            request.send(JSON.stringify(body));
+                
+            }); 
+        };  
     };
     sendForm();
  //our command
@@ -359,4 +364,3 @@ window.addEventListener('DOMContentLoaded', function () {
     };
     ourCommand();
 });
-  
