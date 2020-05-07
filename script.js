@@ -314,15 +314,11 @@ window.addEventListener('DOMContentLoaded', function () {
             });
             console.log(body);
             postData(body)
-            .then(statusMessage.textContent = successMesage)
-            .catch(statusMessage.textContent = errorMessage, error => console.error(error));
-
-            /*postData(body, () => {
-                statusMessage.textContent = successMesage;
-            },(error) => {
+            .then(() => statusMessage.textContent = successMesage)
+            .catch(error => {
                 statusMessage.textContent = errorMessage;
                 console.error(error);
-            });*/
+            });
         };
         const postData = (body) => {
             return new Promise((resolve, reject) => {
