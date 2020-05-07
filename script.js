@@ -312,7 +312,6 @@ window.addEventListener('DOMContentLoaded', function () {
             formData.forEach((val, key) => {
                 body[key] = val;
             });
-            console.log(body);
             postData(body)
             .then(() => statusMessage.textContent = successMesage)
             .catch(error => {
@@ -335,8 +334,7 @@ window.addEventListener('DOMContentLoaded', function () {
                     });
             request.open('POST', './server.php');
             request.setRequestHeader('Content-Type', 'application/json');     
-            request.send(JSON.stringify(body));
-                
+            request.send(JSON.stringify(body));               
             }); 
         };  
     };
