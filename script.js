@@ -264,11 +264,10 @@ window.addEventListener('DOMContentLoaded', function () {
         const errorMessage = 'Что то пошло не так...';
         const loadMessage = 'Загрузка...';
         const successMesage =  'Спасибо! Мы скоро с вами свяжемся!';
-        const form = document.querySelector('#form1');
-        const formBody = document.querySelector('#form2');
-        const formpopUp = document.querySelector('#form3');
+        const forms = document.querySelectorAll('form');
         const inputTel = document.querySelectorAll('input[type="tel"]');
         const typeText = document.querySelectorAll('input[type="text"]');
+
     
         typeText.forEach(elem => elem.addEventListener('input', event => {
             event.target.value = event.target.value.replace(/\w/gi, '');
@@ -278,37 +277,25 @@ window.addEventListener('DOMContentLoaded', function () {
         }));
       
         const statusMessage = document.createElement('div');
-        statusMessage.style.cssText = 'font-size: 2rem;';
         let formData = "";
-        form.appendChild(statusMessage);
-        formpopUp.appendChild(statusMessage);
-        formBody.appendChild(statusMessage);
-    
-        form.addEventListener('submit', (event) => {
-            event.preventDefault();
-            form.appendChild(statusMessage);
-            formData = new FormData(form);
-            formMessage(form);
-            form.reset();
+        let body = {};
+        
+        forms.forEach(form => {
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                form.append(statusMessage);
+                statusMessage.style.cssText = 'font-size: 2rem; color: white;';
+                formData = new FormData(form);
+                formMessage(form);
+                for (const value of formData.entries()) {
+                    body[value[0]] = value[1];
+                }
+                form.reset();
+
+            }); 
         }); 
-        formpopUp.addEventListener('submit', (event) => {
-            event.preventDefault();
-            statusMessage.style.cssText = 'font-size: 2rem; color: white;';
-            formpopUp.appendChild(statusMessage);
-            formData = new FormData(formpopUp);
-            formMessage(formpopUp);
-            formpopUp.reset();
-        });
-        formBody.addEventListener('submit', (event) => {
-            event.preventDefault();
-            formBody.appendChild(statusMessage);
-            formData = new FormData(formBody);
-            formMessage();
-            formBody.reset();    
-        });
         const formMessage = () => { 
             statusMessage.textContent = loadMessage;
-            let body = {};
             formData.forEach((val, key) => {
                 body[key] = val;
             });
