@@ -267,8 +267,10 @@ window.addEventListener('DOMContentLoaded', function () {
         const forms = document.querySelectorAll('form');
         const inputTel = document.querySelectorAll('input[type="tel"]');
         const typeText = document.querySelectorAll('input[type="text"]');
+        const statusMessage = document.createElement('div');
+        let formData = "";
+        let body = {};
 
-    
         typeText.forEach(elem => elem.addEventListener('input', event => {
             event.target.value = event.target.value.replace(/\w/gi, '');
         }));
@@ -276,10 +278,6 @@ window.addEventListener('DOMContentLoaded', function () {
             event.target.value = event.target.value.replace(/\+?\D+$/g, '');
         }));
       
-        const statusMessage = document.createElement('div');
-        let formData = "";
-        let body = {};
-        
         forms.forEach(form => {
             form.addEventListener('submit', (event) => {
                 event.preventDefault();
