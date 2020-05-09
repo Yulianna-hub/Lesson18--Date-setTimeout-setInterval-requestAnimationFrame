@@ -289,34 +289,29 @@ window.addEventListener('DOMContentLoaded', function () {
                     body[value[0]] = value[1];
                 }
                 form.reset();
-
             }); 
         }); 
         const formMessage = () => { 
             statusMessage.textContent = loadMessage;
-            formData.forEach((val, key) => {
-                body[key] = val;
-            });
-            postData(body)
-            .then(() => statusMessage.textContent = successMesage)
+            postData(formData)
+            .then((response) => {
+                if (response.status !== 200) {
+                    throw new Error('Staus network not 200.');
+                }
+                statusMessage.textContent = successMesage;
+            })
             .catch(error => {
                 statusMessage.textContent = errorMessage;
                 console.error(error);
             });
-            /*postData(body)
-            .then(() => statusMessage.textContent = successMesage)
-            .catch(error => {
-                statusMessage.textContent = errorMessage;
-                console.error(error);
-            });*/
         };
-        const postData = (body) => {
+        const postData = (formData) => {
             return fetch('./server.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(body)
+                body: formData
             });
         };
     };
@@ -333,8 +328,7 @@ window.addEventListener('DOMContentLoaded', function () {
         });
         command.addEventListener('mouseout', event => {
             if (event.target.matches('img')) { 
-                event.target.src = temp;   
-            
+                event.target.src = temp; 
             }
         });      
     };
