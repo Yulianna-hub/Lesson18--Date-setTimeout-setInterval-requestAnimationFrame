@@ -52,7 +52,7 @@ window.addEventListener('DOMContentLoaded', function () {
             popupBtn = document.querySelectorAll('.popup-btn'),
             popupContent = document.querySelector('.popup-content');
 
-//popUpAnimation
+    //popUpAnimation
        let popUpAnimation = () => {
             const topPosition = (document.documentElement.clientHeight - popupContent.clientHeight) / 2;
             let start = Date.now();
@@ -296,7 +296,7 @@ window.addEventListener('DOMContentLoaded', function () {
             postData(formData)
             .then((response) => {
                 if (response.status !== 200) {
-                    throw new Error('Staus network not 200.');
+                    throw new Error('Status network not 200.');
                 }
                 statusMessage.textContent = successMesage;
             })
