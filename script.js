@@ -303,25 +303,22 @@ window.addEventListener('DOMContentLoaded', function () {
                 statusMessage.textContent = errorMessage;
                 console.error(error);
             });
+            /*postData(body)
+            .then(() => statusMessage.textContent = successMesage)
+            .catch(error => {
+                statusMessage.textContent = errorMessage;
+                console.error(error);
+            });*/
         };
         const postData = (body) => {
-            return new Promise((resolve, reject) => {
-                const request = new XMLHttpRequest();
-                    request.addEventListener('readystatechange', () => {
-                        if (request.readyState !== 4) {
-                            return;
-                        } 
-                        if (request.status === 200) {
-                            resolve(); 
-                        }else {
-                            reject(request.status);  
-                        }      
-                    });
-            request.open('POST', './server.php');
-            request.setRequestHeader('Content-Type', 'application/json');     
-            request.send(JSON.stringify(body));               
-            }); 
-        };  
+            return fetch('./server.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+        };
     };
     sendForm();
  //our command
@@ -339,7 +336,7 @@ window.addEventListener('DOMContentLoaded', function () {
                 event.target.src = temp;   
             
             }
-        });       
+        });      
     };
     ourCommand();
 });
