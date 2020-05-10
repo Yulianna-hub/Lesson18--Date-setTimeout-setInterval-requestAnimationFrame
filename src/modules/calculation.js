@@ -17,7 +17,6 @@ const calculation = (price = 100) => {
 
         if (calcCount.value > 1) {
             countValue += (calcCount.value -1) / 10;
-            console.log(calcCount.value);
         }
         if (calcDay.value && calcDay.value < 5) {
             dayValue *= 2;    
