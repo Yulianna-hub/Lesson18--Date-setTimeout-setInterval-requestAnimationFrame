@@ -21,7 +21,7 @@ import ourCommand from './modules/ourCommand';
 
 
 //timer 
-    countTimer('30 may 2020');
+    countTimer('30 july 2020');
 //menu
     toggleMenu();
 //popup  
